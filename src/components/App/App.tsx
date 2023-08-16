@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import DropdownMenu from '../DropdownMenu/DropdownMenu';
-import styles from './App.module.css';
+import { useEffect, useRef, useState } from "react";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import styles from "./App.module.css";
 // import TriggerButton from '../TriggerButton/TriggerButton';
 
 function App() {
@@ -18,13 +18,13 @@ function App() {
     setMenuOpen(!menuOpen);
   };
 
-  // определим координаты триггера 
+  // определим координаты триггера
   useEffect(() => {
     if (buttonRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
       buttonPosition.left = buttonRect.left;
       buttonPosition.top = buttonRect.bottom;
-      console.log('Button position:', buttonRect);
+      console.log("Button position:", buttonRect);
     }
   }, [buttonPosition]);
 
@@ -32,8 +32,16 @@ function App() {
     <div className={styles.content}>
       <div className={styles.component}>
         {/* <TriggerButton onClick={() => handleTriggerClick(1)} position={buttonPosition} /> */}
-        <button ref={buttonRef} onClick={() => handleTriggerClick(1)} className={styles.triggerButton}></button>
-        <DropdownMenu isOpen={activeMenuIndex === 1} onClose={() => setActiveMenuIndex(null)} triggerPosition={buttonPosition} />
+        <button
+          ref={buttonRef}
+          onClick={() => handleTriggerClick(1)}
+          className={styles.triggerButton}
+        ></button>
+        <DropdownMenu
+          isOpen={activeMenuIndex === 1}
+          onClose={() => setActiveMenuIndex(null)}
+          triggerPosition={buttonPosition}
+        />
       </div>
     </div>
   );

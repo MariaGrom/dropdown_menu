@@ -1,9 +1,9 @@
 {
-    "extends": [
-        "stylelint-config-standard",
-        "stylelint-config-clean-order",
-        "stylelint-config-prettier"
-       ],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-clean-order",
+    "stylelint-config-prettier"
+  ],
   "plugins": ["stylelint-order"],
   "rules": {
     "no-empty-source": null,

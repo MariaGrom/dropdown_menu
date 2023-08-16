@@ -14,20 +14,18 @@
   position: relative;
 }
 
-
 .triggerButton {
   width: 30px;
   height: 30px;
-  background-image: url('../../assets/icons/dropdown_btn.svg');
+  background-image: url("../../assets/icons/dropdown_btn.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
-  background-color: #FCEFE6;
+  background-color: #fcefe6;
   border-radius: 5px;
   cursor: pointer;
 }
-
 
 .triggerButton:hover {
   background-color: #fcd6bb;
