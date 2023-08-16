@@ -1,0 +1,30 @@
+.dropdownItem {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: start;
+    padding: 0;
+    color: #464444;
+}
+
+.dropdownItem:hover {
+    color: #000;
+    font-weight: 600;
+}
+
+.dropdownItem:hover .iconButton {
+    opacity: 1;
+}
+
+.iconButton {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
