@@ -1,9 +1,8 @@
 import styles from "./DropdownMenu.module.css";
-import IconShareBtn from "../../assets/icons/share_btn.svg";
-import IconEditBtn from "../../assets/icons/edit_btn.svg";
-import IconDeleteBtn from "../../assets/icons/delete_btn.svg";
 import { useEffect, useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { DropdownItemInfo } from "../DropdownItem/DropdownItem.constants";
+import DropdownItem from "../DropdownItem/DropdownItem";
 
 interface DropdownMenuProps {
   isOpen: boolean;
@@ -20,24 +19,19 @@ const DropdownMenu = ({
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [positionMenu, setPositionMenu] = useState({ top: 32, left: 0 });
 
-  const shareInNetworks = () => {
-    console.log("поделиться в соц сетях");
-    onClose();
-  };
-
-  const editContent = () => {
-    console.log("редактировать инфу");
-    onClose();
-  };
-
-  const deleteContent = () => {
-    console.log("удалить контент");
-    onClose();
-  };
-
   // Отслеживаем активное открытое окно
   useEffect(() => {
     setMenuVisible(isOpen);
+
+    // проверка - выходит ли кнопка-триггер за пределы видимости вьюпорта
+    // const viewportHeight = window.innerHeight;
+    // if (isOpen) {
+    //   // Сравниваем нижнюю точку триггера с верхом видимой области (0)
+    //   if (triggerPosition.top + 30 < 0) {
+    //     console.log("triggerPosition.top", triggerPosition.top)
+    //     setMenuVisible(!isOpen);
+    //   }
+    // }
   }, [isOpen]);
 
   // вызов кастомного хука для закрытия выбранного окна
@@ -75,24 +69,19 @@ const DropdownMenu = ({
       className={isOpen ? styles.dropdownMenu : styles.dropdownMenu_hide}
       style={positionMenu}
     >
-      <li>
-        <button className={styles.dropdownItem} onClick={shareInNetworks}>
-          Поделиться в социальных сетях
-          <img src={IconShareBtn} alt="share" className={styles.iconButton} />
-        </button>
-      </li>
-      <li>
-        <button className={styles.dropdownItem} onClick={editContent}>
-          Редактировать страницу{" "}
-          <img src={IconEditBtn} alt="edit" className={styles.iconButton} />
-        </button>
-      </li>
-      <li>
-        <button className={styles.dropdownItem} onClick={deleteContent}>
-          Удалить страницу
-          <img src={IconDeleteBtn} alt="delete" className={styles.iconButton} />
-        </button>
-      </li>
+      {DropdownItemInfo.map((item) => (
+        <DropdownItem
+          key={item.id}
+          id={item.id}
+          title={item.title}
+          scrIcon={item.scrIcon}
+          alt={item.alt}
+          onClick={() => {
+            if (item.onClick) item.onClick();
+            onClose();
+          }}
+        />
+      ))}
     </div>
   );
 };
