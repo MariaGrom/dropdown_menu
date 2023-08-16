@@ -1,16 +1,12 @@
 .content {
   margin-top: 300px;
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: space-between;
-  /* justify-content: flex-end; */
-  /* justify-content: flex-start; */
 }
 
 .component {
-  border: 1px solid red;
   position: relative;
 }
 

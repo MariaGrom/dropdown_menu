@@ -18,7 +18,6 @@ const DropdownMenu = ({
 }: DropdownMenuProps) => {
   const [menuVisible, setMenuVisible] = useState(isOpen);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const [positionTrigger, setPositionTrigger] = useState(triggerPosition);
   const [positionMenu, setPositionMenu] = useState({ top: 32, left: 0 });
 
   const shareInNetworks = () => {
@@ -41,6 +40,7 @@ const DropdownMenu = ({
     setMenuVisible(isOpen);
   }, [isOpen]);
 
+  // вызов кастомного хука для закрытия выбранного окна
   useOutsideClick(dropdownRef, () => {
     if (menuVisible) {
       onClose();
@@ -48,17 +48,13 @@ const DropdownMenu = ({
   });
 
   // функция по определению свободного места для меню dropdown
-
-  const determinePosition = () => {
+  useEffect(() => {
     // определим размер экрана
     const viewportHeight = window.innerHeight;
     const viewportWidth = window.innerWidth;
-    console.log("viewportHeight", viewportHeight);
-    console.log("viewportWidth", viewportWidth);
     // зададим граничные значения для дропдаун меню
     const menuHeight = 130;
     const menuWidth = 260;
-
     // условие если справа от триггера нет места
     if (triggerPosition.left + menuWidth >= viewportWidth) {
       // если справа и снизу нет места
@@ -71,14 +67,9 @@ const DropdownMenu = ({
     } else if (triggerPosition.top + menuHeight >= viewportHeight) {
       setPositionMenu({ top: -114, left: 0 });
     }
-  };
-
-  useEffect(() => {
-    determinePosition();
   }, [triggerPosition]);
 
   return (
-    // <div ref={dropdownRef} className={`${isOpen ? styles.dropdownMenu : styles.dropdownMenu_hide} ${styles.position_up_left}`} >
     <div
       ref={dropdownRef}
       className={isOpen ? styles.dropdownMenu : styles.dropdownMenu_hide}
