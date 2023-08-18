@@ -18,20 +18,11 @@ const DropdownMenu = ({
   const [menuVisible, setMenuVisible] = useState(isOpen);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [positionMenu, setPositionMenu] = useState({ top: 32, left: 0 });
+  const [height, setHeight] = useState(window.innerHeight);
 
-  // Отслеживаем активное открытое окно
+  // отслеживаем активное открытое окно
   useEffect(() => {
     setMenuVisible(isOpen);
-
-    // проверка - выходит ли кнопка-триггер за пределы видимости вьюпорта
-    // const viewportHeight = window.innerHeight;
-    // if (isOpen) {
-    //   // Сравниваем нижнюю точку триггера с верхом видимой области (0)
-    //   if (triggerPosition.top + 30 < 0) {
-    //     console.log("triggerPosition.top", triggerPosition.top)
-    //     setMenuVisible(!isOpen);
-    //   }
-    // }
   }, [isOpen]);
 
   // вызов кастомного хука для закрытия выбранного окна
@@ -41,12 +32,28 @@ const DropdownMenu = ({
     }
   });
 
+  // следим за высотой вьюпорта и закрываем dropdown, если триггер не выходит за границы вьюпорта
+  useEffect(() => {
+    const handleResize = (event: any) => {
+      setHeight(event.target.innerHeight);
+      if (isOpen) {
+        if (triggerPosition.top > height) {
+          onClose();
+        }
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [height, isOpen, onClose, triggerPosition.top]);
+
   // функция по определению свободного места для меню dropdown
   useEffect(() => {
     // определим размер экрана
     const viewportHeight = window.innerHeight;
     const viewportWidth = window.innerWidth;
-    // зададим граничные значения для дропдаун меню
+    // зададим граничные значения для dropdown
     const menuHeight = 130;
     const menuWidth = 260;
     // условие если справа от триггера нет места
