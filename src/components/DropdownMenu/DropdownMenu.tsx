@@ -50,8 +50,7 @@ const DropdownMenu = ({
 
   // функция по определению свободного места для меню dropdown
   useEffect(() => {
-    // определим размер экрана
-    const viewportHeight = window.innerHeight;
+    // определим ширину экрана
     const viewportWidth = window.innerWidth;
     // зададим граничные значения для dropdown
     const menuHeight = 130;
@@ -59,16 +58,16 @@ const DropdownMenu = ({
     // условие если справа от триггера нет места
     if (triggerPosition.left + menuWidth >= viewportWidth) {
       // если справа и снизу нет места
-      if (triggerPosition.top + menuHeight >= viewportHeight) {
+      if (triggerPosition.top + menuHeight >= height) {
         setPositionMenu({ top: -114, left: -230 });
       } else {
         setPositionMenu({ top: 32, left: -230 });
       }
       // снизу нет места
-    } else if (triggerPosition.top + menuHeight >= viewportHeight) {
+    } else if (triggerPosition.top + menuHeight >= height) {
       setPositionMenu({ top: -114, left: 0 });
     }
-  }, [triggerPosition]);
+  }, [triggerPosition, height]);
 
   return (
     <div
