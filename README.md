@@ -1,6 +1,6 @@
 ### DropdownMenu
 
-тестовое задание
+тестовое задание - https://mariagrom.github.io/dropdown_menu/
 
 ### Инструкции по запуску на локальной машине
 
